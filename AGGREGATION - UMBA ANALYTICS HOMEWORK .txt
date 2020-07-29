@@ -1,0 +1,26 @@
+--UMBA PRODUCT ANALYTICS HOMEWORK 2
+
+--AGGREGATION
+
+--number of loan per month
+
+--Checking the type of created 
+--SELECT pg_typeof(created) from loans;
+
+--select date per month
+select date_trunc('month', created) as date_created, 
+--number of loans per month
+count(distinct id) as ttl_loan_per_month, 
+--total amount of loans
+sum(amount) as ttl_amount,
+--average amount of each loan
+avg(amount) as avg_amount,
+--smallest loan size
+min(amount) as min_loan,
+--largest loan size
+max(amount) as max_loan from loans
+--group by month
+group by date_trunc('month', created)
+--order by most recent month first
+order by ttl_loan_per_month desc;
+

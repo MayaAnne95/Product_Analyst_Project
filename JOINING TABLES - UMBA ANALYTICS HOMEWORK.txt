@@ -1,0 +1,15 @@
+--UMBA PRODUCT ANALYTICS HOMEWORK 1
+
+
+--QUERY EVERY LOAN THAT WAS WITHDRAW
+
+--select the loan id, loan amount, user id, date where user account was created, loan transaction fee, and type of transaction
+select distinct t.loan_id as "loan.id", t.amount as "loan.amount", t.user_id as "user.id", u.created as "user.created", t.transaction_fee, t.t_type from transactions as t
+--join the loans table with user id
+join loans as l on l.user_id = t.user_id
+--join the users table with user id
+join users as u on u.id = l.user_id
+--filter the query to get loans whom status is active or repaid and the transaction type is disbursement
+where (l.loan_status = 'active' or  l.loan_status = 'repaid') and t.t_type = 'disbursement'
+--order the query by date the user account was created
+order by "user.created" desc;
